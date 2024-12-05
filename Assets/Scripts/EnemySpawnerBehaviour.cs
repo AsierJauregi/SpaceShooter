@@ -11,6 +11,8 @@ public class EnemySpawnerBehaviour : MonoBehaviour
     [SerializeField] private float lowerLimit;
     [SerializeField] private float cooldown;
     [SerializeField] private float enemyQuantity;
+    [SerializeField] private float waveQuantity; 
+    [SerializeField] private float levelQuantity; 
 
     // Start is called before the first frame update
     void Start()
@@ -26,11 +28,20 @@ public class EnemySpawnerBehaviour : MonoBehaviour
 
     IEnumerator SpawnEnemies()
     {
-        for (int i = 0; i < enemyQuantity; i++)
+        for (int i = 0; i < levelQuantity; i++)
         {
-            float randomY = Random.Range(upperLimit, lowerLimit);
-            Instantiate(enemyPrefab, new Vector3(transform.position.x, randomY, 0), Quaternion.identity);
-            yield return new WaitForSeconds(cooldown); 
+            for (int j = 0; j < waveQuantity; j++)
+            {
+                textLevel.text = "Nivel " + (i + 1) + " - Oleada " + (j + 1);
+                for (int k = 0; k < enemyQuantity; k++)
+                {
+                    float randomY = Random.Range(upperLimit, lowerLimit);
+                    Instantiate(enemyPrefab, new Vector3(transform.position.x, randomY, 0), Quaternion.identity);
+                    yield return new WaitForSeconds(cooldown);
+                    textLevel.text = "";
+                }
+            }
+            
         }
         
     }
