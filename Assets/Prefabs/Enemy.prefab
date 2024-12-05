@@ -94,12 +94,12 @@ GameObject:
   m_Component:
   - component: {fileID: 942195225213927616}
   - component: {fileID: 9010264019478393201}
-  - component: {fileID: 3654164871717175553}
   - component: {fileID: 3698063001466921494}
+  - component: {fileID: 3654164871717175553}
   - component: {fileID: 7267367119932390327}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -137,6 +137,33 @@ MonoBehaviour:
   shotPrefab: {fileID: 4134939810263163249, guid: 88d3448829338d444ad927c27836bf24, type: 3}
   cooldown: 1
   shotSpawpoint: {fileID: 6703199477211304371}
+--- !u!50 &3698063001466921494
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3868154574932468034}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &3654164871717175553
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -182,33 +209,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.076096}
   m_EdgeRadius: 0
---- !u!50 &3698063001466921494
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3868154574932468034}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!212 &7267367119932390327
 SpriteRenderer:
   m_ObjectHideFlags: 0

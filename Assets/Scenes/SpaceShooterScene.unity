@@ -1257,8 +1257,8 @@ MonoBehaviour:
   textLevel: {fileID: 1138656703}
   upperLimit: 4.48
   lowerLimit: -4.48
-  cooldown: 4
-  enemyQuantity: 1
+  cooldown: 1
+  enemyQuantity: 10
   waveQuantity: 3
   levelQuantity: 5
 --- !u!1 &1138656701

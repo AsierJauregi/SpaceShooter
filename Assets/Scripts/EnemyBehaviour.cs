@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    [SerializeField] private string tag = "ShotPlayer";
     [SerializeField] private float speed;
     [SerializeField] private GameObject shotPrefab;
     [SerializeField] private float cooldown;
@@ -31,6 +32,14 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Instantiate(shotPrefab, shotSpawpoint.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(cooldown);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag(tag))
+        {
+            Destroy(collision.gameObject);
+            Destroy(this.gameObject);
         }
     }
     private void OnBecameInvisible()
