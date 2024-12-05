@@ -8,7 +8,7 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private float cooldown;
     [SerializeField] private GameObject upperSpawpoint;
     [SerializeField] private GameObject lowerSpawpoint;
-    private float timer;
+    private float timer = 0;
     // Start is called before the first frame update
     void Start()
     {

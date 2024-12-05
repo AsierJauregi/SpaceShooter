@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Shot : MonoBehaviour
 {
+    [SerializeField] private Vector3 direction;
     [SerializeField] private float speed;
 
     // Start is called before the first frame update
@@ -15,7 +16,7 @@ public class Shot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(new Vector3(1, 0, 0) * speed * Time.deltaTime);
+        transform.Translate(direction * speed * Time.deltaTime);
     }
 
     private void OnBecameInvisible()
