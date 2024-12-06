@@ -1,14 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [SerializeField] private string tag = "ShotPlayer";
+    [SerializeField] private string playerShotTag = "ShotPlayer";
     [SerializeField] private float speed;
     [SerializeField] private GameObject shotPrefab;
+    [SerializeField] private GameObject shotPowerUpPrefab;
+    [SerializeField] private GameObject shieldPowerUpPrefab;
+    [SerializeField] private GameObject healingPowerUpPrefab;
     [SerializeField] private float cooldown;
     [SerializeField] private GameObject shotSpawpoint;
+    [SerializeField] private bool hasPowerUp = false;
+    [SerializeField] private bool isDying = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,14 +40,39 @@ public class EnemyBehaviour : MonoBehaviour
             yield return new WaitForSeconds(cooldown);
         }
     }
+    public void GivePowerUp()
+    {
+        hasPowerUp = true;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(tag))
+        if (collision.gameObject.CompareTag(playerShotTag) && !isDying)
         {
+            isDying = true;
             Destroy(collision.gameObject);
+            if (hasPowerUp) DeployPowerUp();
             Destroy(this.gameObject);
         }
     }
+
+    private void DeployPowerUp()
+    {
+        int randomValue = UnityEngine.Random.Range(1, 4); // 1, 2, 3
+
+        if(randomValue == 1)
+        {
+            Instantiate(shieldPowerUpPrefab, transform.position, Quaternion.identity);
+        }
+        else if(randomValue == 2)
+        {
+            Instantiate(shotPowerUpPrefab, transform.position, Quaternion.identity);
+        }
+        else if(randomValue == 3)
+        {
+            Instantiate(healingPowerUpPrefab, transform.position, Quaternion.identity);
+        }
+    }
+
     private void OnBecameInvisible()
     {
         Destroy(this.gameObject);

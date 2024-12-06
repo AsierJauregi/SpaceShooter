@@ -133,10 +133,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c8ac942da26f046a2b0c9dde41189f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerShotTag: ShotPlayer
   speed: 7
   shotPrefab: {fileID: 4134939810263163249, guid: 88d3448829338d444ad927c27836bf24, type: 3}
+  shotPowerUpPrefab: {fileID: 6525856919853292591, guid: d0c17f751ca84084f970e32bd9f6c1e1, type: 3}
+  shieldPowerUpPrefab: {fileID: 8423967748109623970, guid: fb5a99dc2380a78488c4dfc07bcb2e6a, type: 3}
+  healingPowerUpPrefab: {fileID: 1476732640555422865, guid: 57af1dfe145cbc74bb8066f6a2f71cde, type: 3}
   cooldown: 1
   shotSpawpoint: {fileID: 6703199477211304371}
+  hasPowerUp: 0
 --- !u!50 &3698063001466921494
 Rigidbody2D:
   serializedVersion: 4
