@@ -94,7 +94,13 @@ public class PlayerLogic : MonoBehaviour
 
     IEnumerator BoostShot()
     {
+        hasShotPowerUp = true;
+        GetComponent<PlayerShooting>().ActivatePowerUp();
+
         yield return new WaitForSeconds(powerUpDuration);
+
+        hasShotPowerUp = false;
+        GetComponent<PlayerShooting>().DeactivatePowerUp();
     }
 
     private void Heal()
