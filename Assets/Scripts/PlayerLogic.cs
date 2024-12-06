@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerLogic : MonoBehaviour
 {
-    [SerializeField] private string TagEnemy = "Enemy";
+    [SerializeField] private string tagEnemy = "Enemy";
     [SerializeField] private float speed;
     [SerializeField] private string tag = "ShotEnemy";
     [SerializeField] private float health;
@@ -40,7 +40,7 @@ public class PlayerLogic : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag(tag) || collision.gameObject.CompareTag(TagEnemy))
+        if (collision.gameObject.CompareTag(tag) || collision.gameObject.CompareTag(tagEnemy))
         {
             health -= 20;
             Debug.Log("Helth: " + health);
