@@ -18,9 +18,19 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private bool isDying = false;
     [SerializeField] private GameObject ExplosionAnimationGameObject;
 
+    [SerializeField] private AudioClip explosionClip;
+    [SerializeField] private AudioClip ShootingClip;
+
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
         StartCoroutine(Shoot());
     }
 
@@ -45,6 +55,8 @@ public class EnemyBehaviour : MonoBehaviour
         while (keepShooting)
         {
             Instantiate(shotPrefab, shotSpawpoint.transform.position, Quaternion.identity);
+            yield return new WaitForSeconds(0.1f);
+            audioSource.PlayOneShot(ShootingClip);
             yield return new WaitForSeconds(cooldown);
         }
     }
@@ -72,7 +84,9 @@ public class EnemyBehaviour : MonoBehaviour
         StopShooting();
 
         GameObject deathExplosion = Instantiate(ExplosionAnimationGameObject, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
+        audioSource.PlayOneShot(explosionClip);
+        yield return new WaitForSeconds(0.3f);
         Destroy(deathExplosion);
 
         if (hasPowerUp) DeployPowerUp();
