@@ -16,10 +16,10 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private GameObject shotSpawpoint;
     [SerializeField] private bool hasPowerUp = false;
     [SerializeField] private bool isDying = false;
-    [SerializeField] private GameObject ExplosionAnimationGameObject;
+    [SerializeField] private GameObject explosionAnimationGameObject;
 
     [SerializeField] private AudioClip explosionClip;
-    [SerializeField] private AudioClip ShootingClip;
+    [SerializeField] private AudioClip shootingClip;
 
     private AudioSource audioSource;
 
@@ -56,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
         {
             Instantiate(shotPrefab, shotSpawpoint.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
-            audioSource.PlayOneShot(ShootingClip);
+            audioSource.PlayOneShot(shootingClip);
             yield return new WaitForSeconds(cooldown);
         }
     }
@@ -83,7 +83,7 @@ public class EnemyBehaviour : MonoBehaviour
         StopMoving();
         StopShooting();
 
-        GameObject deathExplosion = Instantiate(ExplosionAnimationGameObject, transform.position, Quaternion.identity);
+        GameObject deathExplosion = Instantiate(explosionAnimationGameObject, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.1f);
         audioSource.PlayOneShot(explosionClip);
         yield return new WaitForSeconds(0.3f);

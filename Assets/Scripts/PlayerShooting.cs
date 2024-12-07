@@ -12,10 +12,18 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private GameObject lowerSpawpoint;
     [SerializeField] private bool hasShotPowerUp = false;
     private float timer = 0;
+
+    [SerializeField] private AudioClip shootingClip;
+    [SerializeField] private AudioClip shotPowerUpClip;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -40,6 +48,7 @@ public class PlayerShooting : MonoBehaviour
                 Instantiate(shotPrefab, middleSpawpoint.transform.position, Quaternion.identity);
                 Instantiate(shotPrefab, lowerSpawpoint.transform.position, Quaternion.Euler(0,0,-45));
             }
+            audioSource.PlayOneShot(shootingClip);
             timer = 0;
         }
     }
@@ -47,6 +56,7 @@ public class PlayerShooting : MonoBehaviour
     public void ActivatePowerUp()
     {
         hasShotPowerUp = true;
+        audioSource.PlayOneShot(shotPowerUpClip);
     }
     public void DeactivatePowerUp() 
     {

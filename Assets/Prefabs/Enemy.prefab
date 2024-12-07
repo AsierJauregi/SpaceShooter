@@ -143,9 +143,9 @@ MonoBehaviour:
   shotSpawpoint: {fileID: 6703199477211304371}
   hasPowerUp: 0
   isDying: 0
-  ExplosionAnimationGameObject: {fileID: 7446883960370720024, guid: 0bae0567b32e4884d9cf3d4639bb6ba9, type: 3}
+  explosionAnimationGameObject: {fileID: 7446883960370720024, guid: 0bae0567b32e4884d9cf3d4639bb6ba9, type: 3}
   explosionClip: {fileID: 8300000, guid: cb5ca49dd26affd46b07f001efaa803c, type: 3}
-  ShootingClip: {fileID: 8300000, guid: bb17bded4fc7de24fa274c11b8d6796c, type: 3}
+  shootingClip: {fileID: 8300000, guid: bb17bded4fc7de24fa274c11b8d6796c, type: 3}
 --- !u!50 &3698063001466921494
 Rigidbody2D:
   serializedVersion: 4

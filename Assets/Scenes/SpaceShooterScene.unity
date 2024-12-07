@@ -1052,6 +1052,9 @@ MonoBehaviour:
   hasShieldPowerUp: 0
   hasShotPowerUp: 0
   isTakingDamage: 1
+  healingClip: {fileID: 8300000, guid: 1b23fd8dfcb4093489cc09d45ab30be5, type: 3}
+  shieldClip: {fileID: 8300000, guid: 9ed6600e6da6cc441bf2c9a71142b2c5, type: 3}
+  explosionClip: {fileID: 8300000, guid: cb5ca49dd26affd46b07f001efaa803c, type: 3}
 --- !u!61 &701063923
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1143,6 +1146,8 @@ MonoBehaviour:
   middleSpawpoint: {fileID: 50701154}
   lowerSpawpoint: {fileID: 1208990828}
   hasShotPowerUp: 0
+  shootingClip: {fileID: 8300000, guid: 7292d5c1655eb0043b235cd0f2c72f5e, type: 3}
+  shotPowerUpClip: {fileID: 8300000, guid: 1a363bc1b956c8c4782aef88e09a213f, type: 3}
 --- !u!1 &765242626
 GameObject:
   m_ObjectHideFlags: 0

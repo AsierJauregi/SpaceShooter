@@ -22,11 +22,21 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] private bool hasShieldPowerUp;
     [SerializeField] private bool hasShotPowerUp;
     [SerializeField] private bool isTakingDamage = false;
+
+    [SerializeField] private AudioClip healingClip;
+    [SerializeField] private AudioClip shieldClip;
+    [SerializeField] private AudioClip explosionClip;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
         shieldGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
     }
 
     // Update is called once per frame
@@ -86,6 +96,7 @@ public class PlayerLogic : MonoBehaviour
     {
         hasShieldPowerUp = true;
         shieldGameObject.GetComponent<SpriteRenderer>().enabled = true;
+        audioSource.PlayOneShot(shieldClip);
 
         yield return new WaitForSeconds(powerUpDuration);
 
@@ -109,6 +120,7 @@ public class PlayerLogic : MonoBehaviour
             if(health < maxHealth)
             {
                 health += 20;
+                audioSource.PlayOneShot(healingClip);
                 Debug.Log("HEAL!! Health: " + health);
             }
         }
@@ -137,6 +149,7 @@ public class PlayerLogic : MonoBehaviour
     {
         Debug.Log("GAME OVER");
         GameObject deathExplosion = Instantiate(ExplosionAnimationGameObject, transform.position, Quaternion.identity);
+        audioSource.PlayOneShot(explosionClip);
         yield return new WaitForSeconds(0.7f);
         Destroy(deathExplosion);
         Destroy(this.gameObject);
