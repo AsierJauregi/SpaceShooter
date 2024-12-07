@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+    private bool keepShooting = true;
     [SerializeField] private string playerShotTag = "ShotPlayer";
     [SerializeField] private float speed;
     [SerializeField] private GameObject shotPrefab;
@@ -15,6 +16,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private GameObject shotSpawpoint;
     [SerializeField] private bool hasPowerUp = false;
     [SerializeField] private bool isDying = false;
+    [SerializeField] private GameObject ExplosionAnimationGameObject;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,13 +35,22 @@ public class EnemyBehaviour : MonoBehaviour
         transform.Translate(new Vector3(-1, 0, 0) * speed * Time.deltaTime);
     }
 
+    private void StopMoving()
+    {
+        speed = 0;
+    }
+
     IEnumerator Shoot()
     {
-        while (true)
+        while (keepShooting)
         {
             Instantiate(shotPrefab, shotSpawpoint.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(cooldown);
         }
+    }
+    private void StopShooting()
+    {
+        keepShooting = false;
     }
     public void GivePowerUp()
     {
@@ -48,11 +60,23 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(playerShotTag) && !isDying)
         {
-            isDying = true;
-            Destroy(collision.gameObject);
-            if (hasPowerUp) DeployPowerUp();
-            Destroy(this.gameObject);
+            StartCoroutine( Die(collision));
         }
+    }
+
+    IEnumerator Die(Collider2D collision)
+    {
+        isDying = true;
+        Destroy(collision.gameObject);
+        StopMoving();
+        StopShooting();
+
+        GameObject deathExplosion = Instantiate(ExplosionAnimationGameObject, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.4f);
+        Destroy(deathExplosion);
+
+        if (hasPowerUp) DeployPowerUp();
+        Destroy(this.gameObject);
     }
 
     private void DeployPowerUp()

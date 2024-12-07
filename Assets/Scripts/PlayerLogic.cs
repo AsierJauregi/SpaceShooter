@@ -17,6 +17,7 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] private float maxHealth;
     [SerializeField] private TextMeshProUGUI textHealth;
     [SerializeField] private GameObject shieldGameObject;
+    [SerializeField] private GameObject ExplosionAnimationGameObject;
     [SerializeField] private float powerUpDuration;
     [SerializeField] private bool hasShieldPowerUp;
     [SerializeField] private bool hasShotPowerUp;
@@ -128,8 +129,16 @@ public class PlayerLogic : MonoBehaviour
         
         if (health <= 0)
         {
-            Debug.Log("GAME OVER");
-            Destroy(this.gameObject);
+            StartCoroutine(Die());
         }
+    }
+
+    IEnumerator Die()
+    {
+        Debug.Log("GAME OVER");
+        GameObject deathExplosion = Instantiate(ExplosionAnimationGameObject, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(0.7f);
+        Destroy(deathExplosion);
+        Destroy(this.gameObject);
     }
 }

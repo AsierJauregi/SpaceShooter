@@ -1047,6 +1047,7 @@ MonoBehaviour:
   maxHealth: 100
   textHealth: {fileID: 0}
   shieldGameObject: {fileID: 765242626}
+  ExplosionAnimationGameObject: {fileID: 7446883960370720024, guid: 0bae0567b32e4884d9cf3d4639bb6ba9, type: 3}
   powerUpDuration: 10
   hasShieldPowerUp: 0
   hasShotPowerUp: 0

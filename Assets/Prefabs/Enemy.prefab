@@ -142,6 +142,8 @@ MonoBehaviour:
   cooldown: 1
   shotSpawpoint: {fileID: 6703199477211304371}
   hasPowerUp: 0
+  isDying: 0
+  ExplosionAnimationGameObject: {fileID: 7446883960370720024, guid: 0bae0567b32e4884d9cf3d4639bb6ba9, type: 3}
 --- !u!50 &3698063001466921494
 Rigidbody2D:
   serializedVersion: 4
