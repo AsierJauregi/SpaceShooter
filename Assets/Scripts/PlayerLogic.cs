@@ -20,8 +20,8 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] private GameObject shieldGameObject;
     [SerializeField] private GameObject ExplosionAnimationGameObject;
     [SerializeField] private float powerUpDuration;
-    [SerializeField] private bool hasShieldPowerUp;
-    [SerializeField] private bool hasShotPowerUp;
+    private float pickedShieldPowerUpp = 0;
+    private float pickedShotPowerUp = 0;
     [SerializeField] private bool isTakingDamage = false;
 
     [SerializeField] private AudioClip healingClip;
@@ -105,25 +105,25 @@ public class PlayerLogic : MonoBehaviour
     }
     IEnumerator ActivateShield()
     {
-        hasShieldPowerUp = true;
+        pickedShieldPowerUpp++;
         shieldGameObject.GetComponent<SpriteRenderer>().enabled = true;
         audioSource.PlayOneShot(shieldClip);
 
         yield return new WaitForSeconds(powerUpDuration);
 
-        hasShieldPowerUp = false;
-        shieldGameObject.GetComponent<SpriteRenderer>().enabled = false;
+        pickedShieldPowerUpp--;
+        if (pickedShieldPowerUpp == 0) shieldGameObject.GetComponent<SpriteRenderer>().enabled = false;
     }
 
     IEnumerator BoostShot()
     {
-        hasShotPowerUp = true;
+        pickedShotPowerUp++;
         GetComponent<PlayerShooting>().ActivatePowerUp();
 
         yield return new WaitForSeconds(powerUpDuration);
 
-        hasShotPowerUp = false;
-        GetComponent<PlayerShooting>().DeactivatePowerUp();
+        pickedShotPowerUp--;
+        if(pickedShotPowerUp == 0) GetComponent<PlayerShooting>().DeactivatePowerUp();
     }
 
     private void Heal()
@@ -139,14 +139,14 @@ public class PlayerLogic : MonoBehaviour
     private void TakeDamage()
     {
 
-        if (!hasShieldPowerUp && !isTakingDamage)
+        if (pickedShieldPowerUpp == 0 && !isTakingDamage)
         {
             isTakingDamage = true;
             health -= 20;
             Debug.Log("Health: " + health);
             UpdateHealthUI();
         }
-        else if(hasShieldPowerUp) 
+        else if(pickedShieldPowerUpp > 0) 
         {
             Debug.Log("Protected by shield!");
         }
