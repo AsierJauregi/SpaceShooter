@@ -34,8 +34,6 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] private GameObject heartVisual3;
     [SerializeField] private GameObject heartVisual4;
     [SerializeField] private GameObject heartVisual5;
-
-    private float playerScore = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +59,10 @@ public class PlayerLogic : MonoBehaviour
         float inputV = Input.GetAxisRaw("Vertical");
 
         transform.Translate(new Vector2(inputH, inputV).normalized * speed * Time.deltaTime);
+    }
+    private void StopMoving()
+    {
+        speed = 0;
     }
 
     private void DelimitMovement()
@@ -160,6 +162,7 @@ public class PlayerLogic : MonoBehaviour
     IEnumerator Die()
     {
         Debug.Log("GAME OVER");
+        StopMoving();
         GameObject deathExplosion = Instantiate(ExplosionAnimationGameObject, transform.position, Quaternion.identity);
         audioSource.PlayOneShot(explosionClip);
         yield return new WaitForSeconds(0.7f);
