@@ -21,7 +21,9 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private AudioClip explosionClip;
     [SerializeField] private AudioClip shootingClip;
 
+    [SerializeField] private float scoreValue = 100;
     private AudioSource audioSource;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         while (keepShooting)
         {
-            Instantiate(shotPrefab, shotSpawpoint.transform.position, Quaternion.identity);
+            Instantiate(shotPrefab, shotSpawpoint.transform.position, Quaternion.identity, this.transform);
             yield return new WaitForSeconds(0.1f);
             audioSource.PlayOneShot(shootingClip);
             yield return new WaitForSeconds(cooldown);
@@ -90,6 +92,7 @@ public class EnemyBehaviour : MonoBehaviour
         Destroy(deathExplosion);
 
         if (hasPowerUp) DeployPowerUp();
+        this.GetComponentInParent<EnemySpawnerBehaviour>().UpdateScore(scoreValue);
         Destroy(this.gameObject);
     }
 

@@ -7,12 +7,14 @@ public class EnemySpawnerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private TextMeshProUGUI textLevel;
+    [SerializeField] private TextMeshProUGUI textScore;
     [SerializeField] private float upperLimit;
     [SerializeField] private float lowerLimit;
     [SerializeField] private float cooldown;
     [SerializeField] private float enemyQuantity;
     [SerializeField] private float waveQuantity; 
     [SerializeField] private float levelQuantity;  
+    private float playerScore = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +38,7 @@ public class EnemySpawnerBehaviour : MonoBehaviour
                 for (int k = 0; k < enemyQuantity; k++)
                 {
                     float randomY = Random.Range(upperLimit, lowerLimit);
-                    GameObject newEnemy = Instantiate(enemyPrefab, new Vector3(transform.position.x, randomY, 0), Quaternion.identity);
+                    GameObject newEnemy = Instantiate(enemyPrefab, new Vector3(transform.position.x, randomY, 0), Quaternion.identity, this.transform);
 
                     int randomValue = Random.Range(1, 5); // 1, 2, 3, 4
                     if (randomValue == 1) newEnemy.GetComponent<EnemyBehaviour>().GivePowerUp();
@@ -48,5 +50,11 @@ public class EnemySpawnerBehaviour : MonoBehaviour
             
         }
         
+    }
+
+    public void UpdateScore(float points)
+    {
+        playerScore += points;
+        textScore.text = "Score: " + playerScore;
     }
 }

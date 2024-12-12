@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerLogic : MonoBehaviour
 {
@@ -27,6 +28,14 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] private AudioClip shieldClip;
     [SerializeField] private AudioClip explosionClip;
     private AudioSource audioSource;
+
+    [SerializeField] private GameObject heartVisual1;
+    [SerializeField] private GameObject heartVisual2;
+    [SerializeField] private GameObject heartVisual3;
+    [SerializeField] private GameObject heartVisual4;
+    [SerializeField] private GameObject heartVisual5;
+
+    private float playerScore = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +131,7 @@ public class PlayerLogic : MonoBehaviour
                 health += 20;
                 audioSource.PlayOneShot(healingClip);
                 Debug.Log("HEAL!! Health: " + health);
+                UpdateHealthUI();
             }
         }
     private void TakeDamage()
@@ -132,6 +142,7 @@ public class PlayerLogic : MonoBehaviour
             isTakingDamage = true;
             health -= 20;
             Debug.Log("Health: " + health);
+            UpdateHealthUI();
         }
         else if(hasShieldPowerUp) 
         {
@@ -141,6 +152,7 @@ public class PlayerLogic : MonoBehaviour
         
         if (health <= 0)
         {
+            UpdateHealthUI();
             StartCoroutine(Die());
         }
     }
@@ -153,5 +165,59 @@ public class PlayerLogic : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
         Destroy(deathExplosion);
         Destroy(this.gameObject);
+    }
+
+    private void UpdateHealthUI()
+    {
+        if (health < maxHealth)
+        {
+            if(health == 80)
+            {
+                heartVisual1.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual2.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual3.GetComponent<SpriteRenderer>().enabled = true; 
+                heartVisual4.GetComponent<SpriteRenderer>().enabled = true; 
+                heartVisual5.GetComponent<SpriteRenderer>().enabled = false; 
+            }else if(health == 60)
+            {
+                heartVisual1.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual2.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual3.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual4.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual5.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else if (health == 40)
+            {
+                heartVisual1.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual2.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual3.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual4.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual5.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else if (health == 20)
+            {
+                heartVisual1.GetComponent<SpriteRenderer>().enabled = true;
+                heartVisual2.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual3.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual4.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual5.GetComponent<SpriteRenderer>().enabled = false;
+            }
+            else if (health == 0)
+            {
+                heartVisual1.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual2.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual3.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual4.GetComponent<SpriteRenderer>().enabled = false;
+                heartVisual5.GetComponent<SpriteRenderer>().enabled = false;
+            }
+        }
+        else
+        {
+            heartVisual1.GetComponent<SpriteRenderer>().enabled = true;
+            heartVisual2.GetComponent<SpriteRenderer>().enabled = true;
+            heartVisual3.GetComponent<SpriteRenderer>().enabled = true;
+            heartVisual4.GetComponent<SpriteRenderer>().enabled = true;
+            heartVisual5.GetComponent<SpriteRenderer>().enabled = true;
+        }
     }
 }
