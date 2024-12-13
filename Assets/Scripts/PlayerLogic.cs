@@ -34,6 +34,8 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField] private GameObject heartVisual3;
     [SerializeField] private GameObject heartVisual4;
     [SerializeField] private GameObject heartVisual5;
+
+    [SerializeField] private GameObject enemySpawner;
     // Start is called before the first frame update
     void Start()
     {
@@ -167,6 +169,7 @@ public class PlayerLogic : MonoBehaviour
         audioSource.PlayOneShot(explosionClip);
         yield return new WaitForSeconds(0.7f);
         Destroy(deathExplosion);
+        enemySpawner.GetComponent<EnemySpawnerBehaviour>().StopSpawning();
         Destroy(this.gameObject);
     }
 

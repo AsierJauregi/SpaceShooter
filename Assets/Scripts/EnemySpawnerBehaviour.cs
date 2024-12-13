@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemySpawnerBehaviour : MonoBehaviour
 {
     [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private GameObject replayButton;
     [SerializeField] private TextMeshProUGUI textLevel;
     [SerializeField] private TextMeshProUGUI textScore;
     [SerializeField] private float upperLimit;
@@ -14,12 +15,14 @@ public class EnemySpawnerBehaviour : MonoBehaviour
     [SerializeField] private float enemyQuantity;
     [SerializeField] private float waveQuantity; 
     [SerializeField] private float levelQuantity;  
+    private bool isPlayerDead = false;  
     private float playerScore = 0;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnEnemies());
+        replayButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,18 +46,29 @@ public class EnemySpawnerBehaviour : MonoBehaviour
                     int randomValue = Random.Range(1, 5); // 1, 2, 3, 4
                     if (randomValue == 1) newEnemy.GetComponent<EnemyBehaviour>().GivePowerUp();
 
+                    if (isPlayerDead)
+                    {
+                        replayButton.SetActive(true);
+                        yield break;
+                    }
                     yield return new WaitForSeconds(cooldown);
                     textLevel.text = "";
                 }
             }
             
         }
-        
+        textLevel.text = "Enemies defeated! You win!!";
+        replayButton.SetActive(true);
     }
 
     public void UpdateScore(float points)
     {
         playerScore += points;
         textScore.text = "Score: " + playerScore;
+    }
+
+    public void StopSpawning()
+    {
+        isPlayerDead = true;
     }
 }
